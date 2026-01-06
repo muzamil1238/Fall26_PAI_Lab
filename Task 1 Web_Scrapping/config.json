@@ -1,0 +1,7 @@
+{
+    "csv_file": "emails.csv",
+    "request_timeout": 10,
+    "max_emails": 100,
+    "app_name": "Public Email Scraper",
+    "developer": "Muzamil Mushtaq"
+}
