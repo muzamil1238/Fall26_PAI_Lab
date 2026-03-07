@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Object Counter - Video Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎥 AI-Powered Object Counter</h1>
+            <p>Upload a video to count and track objects in real-time</p>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <div class="upload-card">
+                    <div class="upload-icon">📹</div>
+                    <h2>Upload Video</h2>
+                    <p>Supported formats: MP4, AVI, MOV, MKV</p>
+                    
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <div class="file-input-wrapper">
+                            <input type="file" id="videoFile" name="video" accept="video/*" required>
+                            <label for="videoFile" class="file-label">
+                                <span id="fileName">Choose a video file</span>
+                            </label>
+                        </div>
+
+                        <div class="detection-method">
+                            <label>Detection Method:</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="detection_method" value="yolo" checked>
+                                    <span>YOLO (Accurate)</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="detection_method" value="background_subtraction">
+                                    <span>Motion Detection (Fast)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="uploadBtn">
+                            <span>Analyze Video</span>
+                        </button>
+                    </form>
+
+                    <div id="progressSection" class="progress-section" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p id="progressText">Processing video...</p>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>📊 Features</h3>
+                    <ul>
+                        <li>✓ Real-time object detection and counting</li>
+                        <li>✓ Multiple detection algorithms (YOLO & Motion)</li>
+                        <li>✓ Detailed analytics and statistics</li>
+                        <li>✓ Visual timeline of object counts</li>
+                        <li>✓ Export results and processed video</li>
+                    </ul>
+
+                    <h3>🚀 How It Works</h3>
+                    <ol>
+                        <li>Upload your video file</li>
+                        <li>Select detection method</li>
+                        <li>AI processes and analyzes the video</li>
+                        <li>View results with detailed statistics</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div id="resultsSection" class="results-section" style="display: none;">
+                <h2>Analysis Results</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🎬</div>
+                        <div class="stat-value" id="totalFrames">-</div>
+                        <div class="stat-label">Total Frames</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🔢</div>
+                        <div class="stat-value" id="maxObjects">-</div>
+                        <div class="stat-label">Max Objects</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-value" id="avgObjects">-</div>
+                        <div class="stat-label">Avg Objects/Frame</div>
+                    </div>
+                </div>
+
+                <div class="video-result">
+                    <h3>Processed Video</h3>
+                    <video id="resultVideo" controls width="100%"></video>
+                    <a id="downloadVideo" class="btn btn-secondary" download>Download Video</a>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Object Count Timeline</h3>
+                    <canvas id="timelineChart"></canvas>
+                </div>
+
+                <div class="object-types">
+                    <h3>Detected Object Types</h3>
+                    <div id="objectTypesList"></div>
+                </div>
+
+                <button class="btn btn-primary" onclick="location.reload()">Analyze Another Video</button>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by OpenCV & Flask | © 2026 AI Object Counter</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
