@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI QnA Bot</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+    University Admission Chatbot
+</div>
+
+    <div id="chatbox" class="chatbox"></div>
+
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Ask anything...">
+        <button onclick="send()">Send</button>
+    </div>
+</div>
+
+<script>
+function send() {
+    let msg = document.getElementById("userInput").value;
+    let chat = document.getElementById("chatbox");
+
+    chat.innerHTML += `<div class='user'>${msg}</div>`;
+
+    fetch("/get", {
+        method: "POST",
+        body: new URLSearchParams({msg: msg}),
+        headers: {"Content-Type": "application/x-www-form-urlencoded"}
+    })
+    .then(res => res.json())
+    .then(data => {
+        chat.innerHTML += `<div class='bot'>${data.reply}</div>`;
+        chat.scrollTop = chat.scrollHeight;
+    });
+
+    document.getElementById("userInput").value = "";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+flask==3.0.0
+numpy>=1.26.0
+faiss-cpu==1.13.2
+sentence-transformers==2.6.1
+torch
+transformers
+scikit-learn
